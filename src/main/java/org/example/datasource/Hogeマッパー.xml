@@ -25,7 +25,6 @@
                 "piyo"
             ) VALUES
             (
-                -- $を使うと文字列をそのまま埋め込むのでSQLインジェクションが怖いが、bindを使うとPreparedStatementが使われた値がnameに入っているので大丈夫。
                 '${hoge.value}',
                 '${piyo.value}'
             )

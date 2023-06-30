@@ -8,6 +8,7 @@ import org.example.domain.Piyo型;
 import org.example.domain.service.command.Hoge追加command;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -144,5 +145,34 @@ class Hogeサービス型Test {
         Assertions.assertEquals("testPiyo1", hogepiyo一覧.get(3).get("piyo"));
         Assertions.assertEquals("testPiyo2", hogepiyo一覧.get(4).get("piyo"));
         Assertions.assertEquals("testPiyo3; DROP TABLE \"hogeschema\".\"hoge_piyo\";", hogepiyo一覧.get(5).get("piyo"));
+    }
+
+
+    @Test
+    @Rollback
+    @Transactional
+    void 追加する2にSQLインジェクションしてみる_その2() {
+        Hoge型 testHoge1 = new Hoge型("testHoge1");
+        Hoge型 testHoge2 = new Hoge型("testHoge2");
+        Hoge型 testHoge3 = new Hoge型("testHoge3");
+
+        List<Hoge型> list = new ArrayList<>();
+        list.add(testHoge1);
+        list.add(testHoge2);
+        list.add(testHoge3);
+        Hogeリスト型 hogeリスト = new Hogeリスト型(list);
+
+        HashMap<Hoge型, Piyo型> map = new HashMap<>();
+        map.put(testHoge1, new Piyo型("testPiyo1"));
+        map.put(testHoge2, new Piyo型("testPiyo2"));
+        map.put(testHoge3, new Piyo型("testPiyo3\' ); DROP TABLE \"hogeschema\".\"hoge_piyo\"; --"));
+        Piyoマップ型 piyoマップ = new Piyoマップ型(map);
+
+        // オーナー権限が無いが、SQLインジェクション自体は成功してしまっている…
+        try{
+            hogeサービス.追加する2(new Hoge追加command(hogeリスト, piyoマップ));
+        } catch (Exception e){
+            Assertions.assertTrue(e.getMessage().contains("must be owner of table hoge_piyo"));
+        }
     }
 }
