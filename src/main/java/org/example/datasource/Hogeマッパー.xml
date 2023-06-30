@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.example.datasource.Hogeマッパー">
-    <insert id="テストinsert">
+    <insert id="テストinsert1">
         <foreach collection="hogeリスト" item="hoge">
             <bind name="piyo" value="piyoマップ.get(hoge)"/>
             INSERT INTO "hogeschema"."hoge_piyo" (
@@ -12,6 +12,22 @@
             (
                 #{hoge.value},
                 #{piyo.value}
+            )
+            ;
+        </foreach>
+    </insert>
+
+    <insert id="テストinsert2">
+        <foreach collection="hogeリスト" item="hoge" index="i">
+            <bind name="piyo" value="piyoマップ.get(hoge)"/>
+            INSERT INTO "hogeschema"."hoge_piyo" (
+                "hoge",
+                "piyo"
+            ) VALUES
+            (
+                -- $を使うと文字列をそのまま埋め込むのでSQLインジェクションが怖いが、bindを使うとPreparedStatementが使われた値がnameに入っているので大丈夫。
+                '${hoge.value}',
+                '${piyo.value}'
             )
             ;
         </foreach>

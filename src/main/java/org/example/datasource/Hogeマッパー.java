@@ -7,5 +7,6 @@ import org.example.domain.Piyoマップ型;
 
 @Mapper
 public interface Hogeマッパー {
-    void テストinsert(@Param("hogeリスト") Hogeリスト型 リスト, @Param("piyoマップ") Piyoマップ型 piyoMap);
+    void テストinsert1(@Param("hogeリスト") Hogeリスト型 リスト, @Param("piyoマップ") Piyoマップ型 piyoMap);
+    void テストinsert2(@Param("hogeリスト") Hogeリスト型 リスト, @Param("piyoマップ") Piyoマップ型 piyoMap);
 }

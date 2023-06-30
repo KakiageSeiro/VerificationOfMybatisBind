@@ -27,6 +27,7 @@ test {
     useJUnitPlatform()
 }
 
+// MybatisでXMLファイルを読み込むための設定。デフォルトではresourcesディレクトリ以下のファイルしか読み込まないため。
 sourceSets {
     main {
         resources.srcDirs("src/main/java", "**/*.xml")

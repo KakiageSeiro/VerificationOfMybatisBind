@@ -16,4 +16,9 @@ public class Hogeサービス型 {
     public void 追加する(Hoge追加command command) {
         hogeリポジトリ.追加する(command.hogeリスト(), command.piyoマップ());
     }
+
+    @Transactional
+    public void 追加する2(Hoge追加command command) {
+        hogeリポジトリ.追加する2(command.hogeリスト(), command.piyoマップ());
+    }
 }

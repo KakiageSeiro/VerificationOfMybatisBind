@@ -5,4 +5,5 @@ import org.example.domain.Piyoマップ型;
 
 public interface Hogeリポジトリ {
     void 追加する(Hogeリスト型 リスト, Piyoマップ型 piyoMap);
+    void 追加する2(Hogeリスト型 リスト, Piyoマップ型 piyoMap);
 }
