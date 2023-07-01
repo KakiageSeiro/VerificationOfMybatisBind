@@ -1,8 +1,9 @@
 package org.example.datasource;
 
+import org.example.datasource.dto.HogePiyoリスト型;
 import org.example.domain.Hogeリスト型;
 import org.example.domain.Piyoマップ型;
-import org.example.domain.service.repository.Hogeリポジトリ;
+import org.example.domain.repository.Hogeリポジトリ;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,5 +23,10 @@ public class Hogeデータソース型 implements Hogeリポジトリ {
     @Override
     public void 追加する2(Hogeリスト型 リスト, Piyoマップ型 piyoMap) {
         mapper.テストinsert2(リスト, piyoMap);
+    }
+
+    @Override
+    public void 追加する3(HogePiyoリスト型 リスト) {
+        mapper.テストinsert3(リスト);
     }
 }

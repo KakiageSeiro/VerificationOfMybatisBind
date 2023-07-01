@@ -18,7 +18,7 @@
     </insert>
 
     <insert id="テストinsert2">
-        <foreach collection="hogeリスト" item="hoge" index="i">
+        <foreach collection="hogeリスト" item="hoge">
             <bind name="piyo" value="piyoマップ.get(hoge)"/>
             INSERT INTO "hogeschema"."hoge_piyo" (
                 "hoge",
@@ -27,6 +27,20 @@
             (
                 '${hoge.value}',
                 '${piyo.value}'
+            )
+            ;
+        </foreach>
+    </insert>
+
+    <insert id="テストinsert3">
+        <foreach collection="hogepiyoリスト" item="hogepiyo">
+            INSERT INTO "hogeschema"."hoge_piyo" (
+                "hoge",
+                "piyo"
+            ) VALUES
+            (
+                #{hogepiyo.hoge.value},
+                #{hogepiyo.piyo.value}
             )
             ;
         </foreach>
